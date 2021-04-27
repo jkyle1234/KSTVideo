@@ -35,6 +35,7 @@ namespace KSTVideo.Data
 
         public DbSet<Video> Videos { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<BasketLine> BasketLines { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

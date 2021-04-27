@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KSTVideo.Data
+namespace KSTVideo.Models
 {
-    public class Genre
+    public class GenreUpdate
     {
         public int ID { get; set; }
-        [Display(Name = "Genre")]
         public string Name { get; set; }
-        public virtual ICollection<Video> Videos { get; set; }
     }
 }

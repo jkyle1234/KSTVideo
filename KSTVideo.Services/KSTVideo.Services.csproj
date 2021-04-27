@@ -54,11 +54,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasketService.cs" />
+    <Compile Include="GenreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KSTVideo.Data\KSTVideo.Data.csproj">
+      <Project>{0e1f94a6-eab9-48f5-89a7-030bdcd2624c}</Project>
+      <Name>KSTVideo.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KSTVideo.Models\KSTVideo.Models.csproj">
+      <Project>{8104ac0c-d7ea-4cd7-b9c9-3ef54baef2f6}</Project>
+      <Name>KSTVideo.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
