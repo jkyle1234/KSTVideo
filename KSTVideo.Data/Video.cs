@@ -15,6 +15,7 @@ namespace KSTVideo.Data
         public string Description { get; set; }
         public string UPCcode { get; set; }
         public decimal RentalPrice { get; set; }
+        public int Quantity { get; set; }
         public int GenreID { get; set; }
         public virtual Genre Genre { get; set; }//navigation property
     }

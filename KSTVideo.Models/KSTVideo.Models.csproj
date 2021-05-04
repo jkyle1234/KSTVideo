@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasketItemCreate.cs" />
+    <Compile Include="BasketView.cs" />
     <Compile Include="GenreCreate.cs" />
     <Compile Include="GenreDetail.cs" />
     <Compile Include="GenreListItem.cs" />

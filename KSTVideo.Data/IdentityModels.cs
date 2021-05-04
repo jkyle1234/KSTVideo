@@ -48,6 +48,8 @@ namespace KSTVideo.Data
                 .Add(new IdentityUserLoginConfiguration())
                 .Add(new IdentityUserRoleConfiguration());
         }
+
+        
     }
 
 
