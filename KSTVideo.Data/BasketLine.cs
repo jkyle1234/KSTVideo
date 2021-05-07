@@ -10,7 +10,6 @@ namespace KSTVideo.Data
     {
         public int ID { get; set; }
         public int VideoID { get; set; }
-        public int Quantity { get; set; }
         public string BasketID { get; set; }
         public DateTime DateAdded { get; set; }
         public virtual Video Video { get; set; }

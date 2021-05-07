@@ -58,9 +58,9 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.ID)
-                @Html.DropDownList("quantity", Enumerable.Range(1, 10).Select(i => new
-                SelectListItem
-                { Text = i.ToString(), Value = i.ToString() }))
+                //@Html.DropDownList("quantity", Enumerable.Range(1, 10).Select(i => new
+                //SelectListItem
+               // { Text = i.ToString(), Value = i.ToString() }))
                 <input type="submit" class="btn btn-primary btn-xs" value="Add to Basket">
             }
         </dd>

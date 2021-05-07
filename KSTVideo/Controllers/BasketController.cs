@@ -13,17 +13,20 @@ namespace KSTVideo.Controllers
     {
         private string sessionkey = "";
 
+       
         // GET: Basket
         public ActionResult Index()
         {
+            //BasketView basket = GetBasket();
             var service = GetService();
-            string basketId = GetBasketID();
             BasketView basket = new BasketView
             {
-                BasketID = basketId,
-                BasketLines = service.GetBasketItems(basketId),
-                TotalCost = service.GetTotalCost(basketId)
+                BasketID = GetBasketID(),
+                BasketLines = service.GetBasketItems(GetBasketID()),
+                TotalCost = service.GetTotalCost(GetBasketID())
             };
+
+
             return View(basket);
         }
 
@@ -35,29 +38,47 @@ namespace KSTVideo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddToBasket(int id, int quantity)
+        public ActionResult AddToBasket(int id)
         {
             var service = GetService();
             BasketItemCreate basket = new BasketItemCreate
             {
                 VideoID = id,
-                Quantity = quantity,
+                //Quantity = quantity,
                 BasketID = GetBasketID(),
                 DateAdded = DateTime.Now
             };
+           
 
             service.AddToBasket(basket);
-           
+
             return RedirectToAction("Index");
         }
 
 
-        public ActionResult UpdateBasket(BasketView basket)
+        
+        public ActionResult PlaceOrder()
         {
             var service = GetService();
-            bool updated = service.UpdateBasket(basket);
+            BasketView basket = new BasketView
+            {
+                BasketID = GetBasketID(),
+                BasketLines = service.GetBasketItems(GetBasketID()),
+                TotalCost = service.GetTotalCost(GetBasketID())
+            };
 
-            return null;
+
+            return View(basket);
+        }
+
+
+        [HttpGet]
+        [Route("RemoveBasketLine/{id}")]
+        public ActionResult RemoveBasketLine(int id)
+        {
+            var service = GetService();
+            service.RemoveBasketItem(GetBasketID(), id);
+            return RedirectToAction("Index");
         }
 
 
@@ -78,6 +99,26 @@ namespace KSTVideo.Controllers
                 }
             }
             return HttpContext.Session[sessionkey].ToString();
+        }
+
+
+        private BasketView GetBasket()
+        {
+            BasketView basket = (BasketView)Session["basket"];
+            if (basket is null)
+            {
+                var service = GetService();
+                basket = new BasketView
+                {
+                    BasketID = GetBasketID(),
+                    BasketLines = service.GetBasketItems(GetBasketID()),
+                    TotalCost = service.GetTotalCost(GetBasketID())
+                };
+               
+            }
+
+            Session["basket"] = basket;
+            return basket;
         }
 
 

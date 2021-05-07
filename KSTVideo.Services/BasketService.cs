@@ -23,33 +23,13 @@ namespace KSTVideo.Services
 
 
 
-        public bool UpdateBasket(BasketView basket)
+       
+
+        public void AddToBasket(BasketItemCreate item)
         {
             var ctx = new ApplicationDbContext();
-            foreach(BasketLine b in basket.BasketLines)
-            {
-                var item = GetBasketLine(b.BasketID, b.VideoID);
-                if(item != null)
-                {
-                    if (item.Quantity == 0)
-                    {
-                        RemoveBasketItem(item.Video.ID);
-                    }
-                    else
-                    {
-                        item.Quantity = b.Quantity;
-                    }
-                }
-            }
-            return ctx.SaveChanges() >= 0;
-        }
-
-
-        public bool AddToBasket(BasketItemCreate item)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var entity = GetBasketLine(item.VideoID);
+            
+                var entity = GetBasketLine(item.BasketID,item.VideoID);
 
                 if (entity == null)
                 {
@@ -59,31 +39,30 @@ namespace KSTVideo.Services
                          VideoID = item.VideoID,
                          DateAdded = DateTime.Now,
                          BasketID = item.BasketID,
-                         Quantity = item.Quantity
+                       
 
                      };
                  ctx.BasketLines.Add(entity);
                 }
-                else
-                {
-                    entity.Quantity += item.Quantity;
-                }
+            
+
+            ctx.SaveChanges();
+           
                
-               return ctx.SaveChanges() == 1;
-            }
+            
         }
 
 
-        public void RemoveBasketItem(int videoid)
+        public void RemoveBasketItem(string basketid, int videoid)
         {
-            var basketItem = GetBasketLine(videoid);
+            var ctx = new ApplicationDbContext();
+            var basketItem = ctx.BasketLines.FirstOrDefault(b => b.BasketID == basketid && b.Video.ID == videoid);
             if (basketItem != null)
             {
-                using (var ctx = new ApplicationDbContext())
-                {
-                    ctx.BasketLines.Remove(basketItem);
-                    ctx.SaveChanges();
-                }
+              
+                ctx.BasketLines.Remove(basketItem);
+                ctx.SaveChanges();
+                
             }
         }
 
@@ -95,16 +74,11 @@ namespace KSTVideo.Services
         }
 
 
-        private BasketLine GetBasketLine(int id)
-        {
-            
-                var ctx = new ApplicationDbContext();
-                var bl = ctx.BasketLines.FirstOrDefault(b => b.VideoID == id);
-                return bl;
-        }
+        
 
         private BasketLine GetBasketLine(string basketid,int videoid)
         {
+
             var ctx = new ApplicationDbContext();
             return ctx.BasketLines.FirstOrDefault(b => b.BasketID == basketid && b.Video.ID == videoid);
         }
@@ -112,9 +86,10 @@ namespace KSTVideo.Services
 
         public List<BasketLine> GetBasketItems(string basketid)
         {
+
             var ctx = new ApplicationDbContext();
             return ctx.BasketLines.Where(b => b.BasketID == basketid).ToList();
-            
+          
         }
 
         public decimal GetTotalCost(string basketid)
@@ -125,7 +100,7 @@ namespace KSTVideo.Services
             {
                 if(GetBasketItems(basketid).Count > 0)
                 {
-                    total = ctx.BasketLines.Where(b => b.BasketID == basketid).Sum(b => b.Video.RentalPrice * b.Quantity);
+                    total = ctx.BasketLines.Where(b => b.BasketID == basketid).Sum(b => b.Video.RentalPrice);
                 }
 
             }

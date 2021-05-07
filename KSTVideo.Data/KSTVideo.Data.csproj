@@ -77,6 +77,10 @@
     <Compile Include="Migrations\202104292247049_BasketID.Designer.cs">
       <DependentUpon>202104292247049_BasketID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105052352524_removeQuantity.cs" />
+    <Compile Include="Migrations\202105052352524_removeQuantity.Designer.cs">
+      <DependentUpon>202105052352524_removeQuantity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Video.cs" />
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104292247049_BasketID.resx">
       <DependentUpon>202104292247049_BasketID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105052352524_removeQuantity.resx">
+      <DependentUpon>202105052352524_removeQuantity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
