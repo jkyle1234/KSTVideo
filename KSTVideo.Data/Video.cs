@@ -18,5 +18,8 @@ namespace KSTVideo.Data
         public int Quantity { get; set; }
         public int GenreID { get; set; }
         public virtual Genre Genre { get; set; }//navigation property
+        public int ImageID { get; set; }
+        public string ImageName { get; set; }
+       
     }
 }

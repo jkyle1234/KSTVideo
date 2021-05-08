@@ -13,5 +13,6 @@ namespace KSTVideo.Models
         public string UPCcode { get; set; }
         public decimal RentalPrice { get; set; }
         public int GenreID { get; set; }
+        public string ImageName { get; set; }
     }
 }

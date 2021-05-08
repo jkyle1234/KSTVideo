@@ -21,11 +21,20 @@ namespace KSTVideo.Controllers
        
 
         // GET: Videos
-        public ActionResult Index()
+        public ActionResult Index(string genre,string search)
         {
 
             var service = GetService();
-            var videos = service.GetVideos();
+            var videos = service.GetVideos(genre,search);
+            if(!String.IsNullOrEmpty(search))
+            {
+                ViewBag.Search = search;
+            }
+
+            var genres = db.Videos.OrderBy(v => v.Genre.Name).Select(v =>
+            v.Genre.Name).Distinct();
+
+            ViewBag.Genre = new SelectList(genres);
             return View(videos);
         }
 
@@ -51,6 +60,7 @@ namespace KSTVideo.Controllers
         public ActionResult Create()
         {
             ViewBag.GenreID = new SelectList(db.Genres, "ID", "Name");
+            ViewBag.ImageName = new SelectList(db.VideoImages, "ImageName", "ImageName");
             return View();
         }
 

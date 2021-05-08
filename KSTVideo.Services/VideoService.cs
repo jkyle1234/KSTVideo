@@ -6,6 +6,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PagedList.Mvc;
+using PagedList;
 
 namespace KSTVideo.Services
 {
@@ -28,7 +30,9 @@ namespace KSTVideo.Services
                      Description = vid.Description,
                      UPCcode = vid.UPCcode,
                      RentalPrice = vid.RentalPrice,
-                     GenreID = vid.GenreID
+                     GenreID = vid.GenreID,
+                     ImageName = vid.ImageName
+
                  };
 
             using (var ctx = new ApplicationDbContext())
@@ -38,31 +42,31 @@ namespace KSTVideo.Services
             }
         }
 
-        public IEnumerable<VideoListItem> GetVideos()
+        //public IEnumerable<VideoListItem> GetVideos(string genre, string search)
+        public List<Video> GetVideos(string genre,string search)
         {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var query =
-                    ctx
-                        .Videos
-                        .Select(
-                            e =>
-                                new VideoListItem
-                                {
-                                    Name = e.Name,
-                                    Description = e.Description,
-                                    RentalPrice = e.RentalPrice,
-                                    UPCcode = e.UPCcode,
-                                    ID = e.ID,
-                                    Genre = e.Genre
-                                    
-                                }
-                        );
-                        
-                        
+            var ctx = new ApplicationDbContext();
 
-                return query.ToList<VideoListItem>();
-            }
+
+            var query = ctx.Videos.Include(e => e.Genre);
+               
+
+                if (!String.IsNullOrEmpty(genre))
+                {
+                    query = ctx.Videos.Where(e => e.Genre.Name == genre);
+                }
+
+
+                if (!String.IsNullOrEmpty(search))
+                {
+                    query    = ctx.Videos.Where(e => e.Name.Contains(search) ||
+                    e.Description.Contains(search) ||
+                    e.Genre.Name.Contains(search));
+                    
+                }
+
+
+            return query.ToList<Video>();
         }
 
 
@@ -83,7 +87,9 @@ namespace KSTVideo.Services
                         RentalPrice = entity.RentalPrice,
                         UPCcode = entity.UPCcode,
                         Genre = entity.Genre,
-                        GenreID = entity.GenreID
+                        GenreID = entity.GenreID,
+                        ImageName = entity.ImageName
+                       
                     };
             }
         }

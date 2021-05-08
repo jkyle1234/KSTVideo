@@ -1,4 +1,5 @@
-﻿@model IEnumerable<KSTVideo.Models.VideoListItem>
+﻿@model IEnumerable<KSTVideo.Data.Video>
+
 
 @{
     ViewBag.Title = "Index";
@@ -8,9 +9,18 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
-</p>
+    @using (Html.BeginForm("Index", "Videos", FormMethod.Get))
+    {
+        <label>Filter by genre:</label> @Html.DropDownList("Genre", "All")
+        <input type="submit" value="Filter" />
+        <input type="hidden" name="Search" id="Search" value="@ViewBag.Search" />
+    }
+    </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Genre.Name)
         </th>
@@ -30,28 +40,32 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UPCcode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RentalPrice)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        <img src="@Url.Content("~/Content/Images/" + item.ImageName)" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Genre.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UPCcode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RentalPrice)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
 }
 
 </table>
+

@@ -16,5 +16,7 @@ namespace KSTVideo.Models
         public decimal RentalPrice { get; set; }
         public Genre Genre {get;set;}
         public int GenreID { get; set; }
+        public string ImageName { get; set; }
+
     }
 }

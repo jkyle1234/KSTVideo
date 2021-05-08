@@ -19,6 +19,10 @@ namespace KSTVideo.Data
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool IsAdmin { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -36,6 +40,7 @@ namespace KSTVideo.Data
         public DbSet<Video> Videos { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<BasketLine> BasketLines { get; set; }
+        public DbSet<VideoImage> VideoImages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

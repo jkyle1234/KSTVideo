@@ -44,7 +44,6 @@ namespace KSTVideo.Controllers
             BasketItemCreate basket = new BasketItemCreate
             {
                 VideoID = id,
-                //Quantity = quantity,
                 BasketID = GetBasketID(),
                 DateAdded = DateTime.Now
             };
