@@ -41,6 +41,7 @@ namespace KSTVideo.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<BasketLine> BasketLines { get; set; }
         public DbSet<VideoImage> VideoImages { get; set; }
+        public DbSet<EmailClient> EmailClients { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

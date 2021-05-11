@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasketLine.cs" />
+    <Compile Include="EmailClient.cs" />
     <Compile Include="Genre.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Migrations\202104222321087_InitialCreate.cs" />
@@ -107,6 +108,10 @@
     <Compile Include="Migrations\202105082042219_removeVideoImage.Designer.cs">
       <DependentUpon>202105082042219_removeVideoImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105092151519_emailclient.cs" />
+    <Compile Include="Migrations\202105092151519_emailclient.Designer.cs">
+      <DependentUpon>202105092151519_emailclient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Video.cs" />
@@ -149,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105082042219_removeVideoImage.resx">
       <DependentUpon>202105082042219_removeVideoImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105092151519_emailclient.resx">
+      <DependentUpon>202105092151519_emailclient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

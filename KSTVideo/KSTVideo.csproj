@@ -192,7 +192,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\avengers.jpg" />
+    <Content Include="Content\Images\kst.jpg" />
+    <Content Include="Content\Images\navyseals.jpg" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\store.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

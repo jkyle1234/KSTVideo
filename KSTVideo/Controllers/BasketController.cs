@@ -66,6 +66,9 @@ namespace KSTVideo.Controllers
                 TotalCost = service.GetTotalCost(GetBasketID())
             };
 
+            service.SendEmail(basket);
+            BasketView temp = basket;
+            service.EmptyBasket(GetBasketID());
 
             return View(basket);
         }

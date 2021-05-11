@@ -5,5 +5,11 @@
     ViewBag.Title = "PlaceOrder";
 }
 
-<h2>Order submitted</h2>
-
+<h2 class="text-center">Order submitted</h2>
+<p class="text-center">Your order has been submitted to a clerk at KST video. Thanks for being a valuable customer.</p>
+<div>
+    @Html.ActionLink("Back to home", "Index", "Home")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

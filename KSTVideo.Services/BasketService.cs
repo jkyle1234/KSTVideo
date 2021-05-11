@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Mail;
 
 
 namespace KSTVideo.Services
@@ -68,9 +70,49 @@ namespace KSTVideo.Services
 
 
 
+        public bool SendEmail(BasketView basket)
+        {
+            var ctx = new ApplicationDbContext();
+            var client = ctx.EmailClients.Find(1);
+            try
+            {
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress(client.FromAddress);
+                message.To.Add(new MailAddress(client.FromAddress));
+                message.Subject = "Order for " + basket.BasketID;
+                message.IsBodyHtml = true; //to make message body as html  
+                message.Body = CreateInvoice(basket);
+                smtp.Port = client.Port;
+                smtp.Host = client.SMTPAddress; //for gmail host  
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(client.FromAddress, client.Password);
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+            }
+            catch (Exception) { }
+            return true;
+        }
+
+        private string CreateInvoice(BasketView basket)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(BasketLine b in basket.BasketLines)
+            {
+                sb.Append(b.Video.Name).Append("\t\t").Append(b.Video.RentalPrice);
+                sb.Append("\n");
+            }
+            return sb.ToString();
+        }
+
+
+
         public void EmptyBasket(string basketid)
         {
-
+            var ctx = new ApplicationDbContext();
+            ctx.BasketLines.RemoveRange(ctx.BasketLines.Where(b => b.BasketID == basketid));
+            ctx.SaveChanges();
         }
 
 
