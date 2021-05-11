@@ -100,8 +100,8 @@ namespace KSTVideo.Services
             StringBuilder sb = new StringBuilder();
             foreach(BasketLine b in basket.BasketLines)
             {
-                sb.Append(b.Video.Name).Append("\t\t").Append(b.Video.RentalPrice);
-                sb.Append("\n");
+                sb.Append(b.Video.Name).Append("\t").Append(b.Video.RentalPrice);
+                sb.Append("<br>").Append("<br>");
             }
             return sb.ToString();
         }
